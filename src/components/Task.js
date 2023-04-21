@@ -5,7 +5,8 @@ const Task = () => {
   // const Navigate = useNavigate();
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
-//   const [getNote, setGetNote] = useState([]);
+  const [getTask, setGetTask] = useState([]);
+
   const submitHandler = async (e) => {
     e.preventDefault();
     const response = await axios.post(

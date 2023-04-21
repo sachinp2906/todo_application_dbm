@@ -7,12 +7,14 @@ const Navbar = () => {
         <div className="container-fluid">
           <div className="navbar-brand">TodoApp</div>
           <NavLink to="/" className="nav-link active" aria-current="page">
-            Home
-          </NavLink>
+            || Home ||*
+          </NavLink>{" "}
           <NavLink to="/task" className="nav-link active" aria-current="page">
-            Task
+            || CreateTask ||*
           </NavLink>
-
+          <NavLink to="/task/all" className="nav-link active" aria-current="page">
+            || MyAllTask ||
+          </NavLink>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
             <form className="d-flex">
