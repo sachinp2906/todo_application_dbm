@@ -101,7 +101,7 @@ const verifyToken = (req, res, next) => {
 //**************************************code for the task********************** */
 
 // getting all task
-app.get("/tasks", verifyToken, (req, res) => {
+app.get("/task/all", verifyToken, (req, res) => {
   // Retrieving all tasks for a user from the database
   const userId = req.userId;
   connection.query(
@@ -128,6 +128,7 @@ app.post("/task/create", verifyToken, (req, res) => {
   );
 });
 
+
 // updating the task
 app.put("/tasks/:id", verifyToken , (req, res) => {
   const taskId = req.params.id;
@@ -145,25 +146,10 @@ app.put("/tasks/:id", verifyToken , (req, res) => {
 
 
 // deleting the task
-app.delete("/tasks/:id", verifyToken , async (req, res) => {
+app.get("/task/delete/:id", verifyToken , async (req, res) => {
   try {
     const id = req.params.id;
-    const userId = req.user.id;
-
-    const task = await connection.query(
-      "SELECT * FROM task WHERE id = ? AND user_id = ?",
-      [id, userId]
-    );
-    if (!task.length) {
-      return res
-        .status(404)
-        .json({
-          error: "Task not found or does not belong to the authenticated user",
-        });
-    }
-
     await connection.query("DELETE FROM task WHERE id = ?", [id]);
-
     res.json({ message: "Task deleted successfully" });
   } catch (err) {
     console.error(err);
