@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
 import axios from "axios";
 const Task = () => {
-  // const Navigate = useNavigate();
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("");
   const [getTask, setGetTask] = useState([]);
 
   const submitHandler = async (e) => {
+    let status = document.getElementById("select").value;
     e.preventDefault();
     const response = await axios.post(
       "http://localhost:3001/task/create",
       {
         description,
-        status,
+        status
       },
       {
         headers: {
@@ -26,44 +24,8 @@ const Task = () => {
     if (!response.data || response.status === 400) {
       console.log("invalid request || no data found");
     }
-    // getNotes();
     setDescription("");
-    setStatus("");
   };
-
-  // for fetching the note data
-
-//   const getNotes = async (e) => {
-//     // e.preventDefault()
-//     const response = await fetch("http://localhost:3000/fetch");
-//     const data = await response.json();
-//     console.log(data);
-//     const arr = Array.from(data.notes);
-//     console.log(arr);
-//     setGetNote(arr);
-//   };
-//   useEffect(() => {
-//     getNotes();
-//   }, []);
-
-
-//   const deleteNote = async (id) => {
-//     try {
-//       const del = await axios.get(`http://localhost:3000/delete/${id}`);
-//       console.log("succesfully deleted");
-//       getNotes();
-//     } catch (err) {
-//       console.log("unable to delete data");
-//     }
-//   };
-
-  // for deleting the data
-  // const deleteNote= (val) => {
-  //   const data = getNote.filter((e) => {
-  //     return e.id !== val;
-  //   });
-  //   setGetNote(data);
-  // };
 
   return (
     <>
@@ -83,15 +45,15 @@ const Task = () => {
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                     ></input>
-                    <input
-                      className="form-control w-full mb-3"
-                      type="text"
-                      name="status"
-                      required
-                      placeholder="status"
-                      value={status}
-                      onChange={(e) => setStatus(e.target.value)}
-                    ></input>
+                    <div className="selectBox" id="selectBox">
+                      <span> Status : </span>
+                      <select id="select">
+                        <option value="no select">select</option>
+                        <option value="pending">Pending</option>
+                        <option value="in progress">In progress</option>
+                        <option value="completed">Completed</option>
+                      </select>
+                    </div>
                     <button
                       type="submit"
                       className="btn bg-primary text-white"
